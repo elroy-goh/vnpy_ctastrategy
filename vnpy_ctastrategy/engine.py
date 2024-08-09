@@ -669,10 +669,10 @@ class CtaEngine(BaseEngine):
         strategy: CtaTemplate = self.strategies[strategy_name]
 
         if strategy.inited:
-            self.write_log(_("{}已经完成初始化，禁止重复操作").format(strategy_name))
+            self.write_log(_("{} strategy already initialised.").format(strategy_name))
             return
 
-        self.write_log(_("{}开始执行初始化").format(strategy_name))
+        self.write_log(_("Initialising {} strategy.").format(strategy_name))
 
         # Call on_init function of strategy
         self.call_strategy_func(strategy, strategy.on_init)
@@ -692,12 +692,12 @@ class CtaEngine(BaseEngine):
                 symbol=contract.symbol, exchange=contract.exchange)
             self.main_engine.subscribe(req, contract.gateway_name)
         else:
-            self.write_log(_("行情订阅失败，找不到合约{}").format(strategy.vt_symbol), strategy)
+            self.write_log(_("Market data subscription failed. Unable to find contract: {}").format(strategy.vt_symbol), strategy)
 
         # Put event to update init completed status.
         strategy.inited = True
         self.put_strategy_event(strategy)
-        self.write_log(_("{}初始化完成").format(strategy_name))
+        self.write_log(_("{} initialised.").format(strategy_name))
 
     def start_strategy(self, strategy_name: str) -> None:
         """
