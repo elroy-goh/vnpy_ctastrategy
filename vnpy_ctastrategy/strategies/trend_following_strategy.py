@@ -44,6 +44,7 @@ class MacdStrategy(CtaTemplate):
         self.bg = BarGenerator(self.on_bar)
         self.am = ArrayManager()
         self.macds = list()
+        self.target_pos = 0
 
     def on_init(self):
         """
@@ -107,7 +108,7 @@ class MacdStrategy(CtaTemplate):
         if pos_change > 0:
             self.buy(bar.close_price, pos_change)
         elif pos_change < 0:
-            self.sell(bar.close_price, -pos_change)
+            self.short(bar.close_price, pos_change)
 
         self.put_event()
 
