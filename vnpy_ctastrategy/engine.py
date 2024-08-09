@@ -949,7 +949,7 @@ class CtaEngine(BaseEngine):
             msg: str = f"[{strategy.strategy_name}]  {msg}"
 
         log: LogData = LogData(msg=msg, gateway_name=APP_NAME)
-        event: Event = Event(type=EVENT_LOG, data=log)
+        event: Event = Event(type=EVENT_CTA_LOG, data=log)
         self.event_engine.put(event)
 
     def send_email(self, msg: str, strategy: CtaTemplate = None) -> None:

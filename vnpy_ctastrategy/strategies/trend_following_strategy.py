@@ -69,7 +69,6 @@ class MacdStrategy(CtaTemplate):
         """
         Callback of new tick data update.
         """
-        self.write_log(f"tick: {tick}")
         self.bg.update_tick(tick)
 
     def on_bar(self, bar: BarData):
@@ -108,7 +107,7 @@ class MacdStrategy(CtaTemplate):
         if pos_change > 0:
             self.buy(bar.close_price, pos_change)
         elif pos_change < 0:
-            self.short(bar.close_price, pos_change)
+            self.short(bar.close_price, -pos_change)
 
         self.put_event()
 
@@ -116,11 +115,6 @@ class MacdStrategy(CtaTemplate):
         """
         Callback of new trade data update.
         """
-        if trade.direction == Direction.LONG:
-            self.pos += trade.volume
-        else:
-            self.pos -= trade.volume
-        
         self.write_log(f"trade: {trade}")
         self.write_log(f"pos: {self.pos}")
 
