@@ -50,7 +50,7 @@ class MacdStrategy(CtaTemplate):
         Callback when strategy is inited.
         """
         self.write_log("Strategy initialized")
-        self.load_bar(100)
+        self.load_bar(1)
 
     def on_start(self):
         """
@@ -68,6 +68,7 @@ class MacdStrategy(CtaTemplate):
         """
         Callback of new tick data update.
         """
+        self.write_log(f"tick: {tick}")
         self.bg.update_tick(tick)
 
     def on_bar(self, bar: BarData):
